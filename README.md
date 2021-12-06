@@ -1,4 +1,4 @@
-# Weather
+# The Weather
 https://openweathermap.org/api/geocoding-api
 Weather API
 
