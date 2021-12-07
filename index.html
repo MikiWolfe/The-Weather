@@ -10,14 +10,24 @@
       rel="stylesheet"
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
       crossorigin="anonymous"
-    />
+      />
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <title>The Weather</title>
   </head>
 
   <body>
     <h1 class="h1">The Weather</h1> 
-     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <div id ="container">
+      <h3>Search for City:</h3>
+      <form id ="search-form" class= "form w-100">
+        <input id="search-input" class="form-input col-sm-2" type="text" placeholder="Enter city here:">
+        </form>
+      <button id="btn" type='submit' class='btn btn-primary'>Search</button>
+     
+    
+    </div>
     <script src="assests/script/script.js"></script>
   </body>
 </html>
