@@ -19,4 +19,6 @@
       justify-content: start;
   }
   
-  
+  .form-input{
+    width: 150px;
+  }
