@@ -1,7 +1,8 @@
 * { 
+ 
     font-family: Helvetica, Sans-Serif;
     margin:0; 
-    background-color: linen;
+   
     box-sizing: border-box;
     color: rgb(85, 10, 85);
   }
@@ -19,6 +20,10 @@
       justify-content: start;
   }
   
-  .form-input{
-    width: 150px;
-  }
+  
+
+
+
+
+/* @media (min-width: 576px)  */
+
