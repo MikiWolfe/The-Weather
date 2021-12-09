@@ -1,4 +1,3 @@
-const button = document.getElementById("#btn");
 const searchFormEl = document.getElementById("#search-form");
 let pastSearch = document.getElementById("#past-search-btns");
 const currentWeatherEl = document.getElementById("#currentWeather");
