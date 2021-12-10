@@ -92,18 +92,15 @@ function displayPastCity() {
   for (let i = 0; i < searchCityHistory.length; i++) {
     let pastBtn = document.createElement("button");     
     pastBtn.classList.add("btn", "btn-secondary", "btn-block", "caps");
-    // pastBtn.setAttribute(
-    //   "onClick",
-    //   "(this.value)"
-    // );
+    pastBtn.setAttribute("type","text")
+    pastBtn.setAttribute("value", searchCityHistory[i]);
+    pastBtn,innerHTML = "value"
     pastBtn.addEventListener("click", function(){
-    pastBtn.value  
-    pastSearch.appendChild(pastBtn);
+ 
     })
-    
+       pastSearch.appendChild(pastBtn);
   }
 }
-
 // clear local storage
 clearBtn = document.createElement("button");
 clearBtn.classList.add("btn-danger", "btn-block", "btn", "caps");
