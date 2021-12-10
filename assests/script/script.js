@@ -14,7 +14,7 @@ let currentTime = moment().format("MMMM Do YYYY");
 let searchCityHistory = [];
 let userCity = null;
 const myAPIKey = "e18c8f36cfe444e519c94f2dc3231355"; // just in case ;
-
+moment();
 function printResults(data) {
   currentWeatherHeader.innerHTML =
     "Current City : " +
@@ -62,11 +62,21 @@ function displayPastCity() {
     let pastBtn = document.createElement("button");
 
     pastSearch.appendChild(pastBtn);
+    pastBtn.classList.add('btn', 'btn-secondary', 'btn-block')
+
     // id, value, onclick and attributes
+    //  <button class="btn btn-secondary btn-block">Past City</button>
   }
-}
+};
+
+// clear local storage
 clearBtn = document.createElement("button")
-clearBtn.addClass("btn btn-danger btn-block");
-searchBtn.appendChild(clearBtn)
-// class="btn btn-danger btn-block"
-moment();
+clearBtn.classList.add('btn-danger', 'btn-block' , 'btn')
+clearBtn.innerHTML = "Clear Search";
+pastSearch.appendChild(clearBtn)
+pastSearch.addEventListener("click", function(){
+  localStorage.clear()
+})
+
+
+
