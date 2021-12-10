@@ -1,31 +1,22 @@
-* { 
- 
-    font-family: Helvetica, Sans-Serif;
-    margin:0; 
-   
-    box-sizing: border-box;
-    color: rgb(85, 10, 85);
-  }
-  
-  .h1 {
-    padding: 2%;
-    background-image: linear-gradient(to bottom right, rgb(2, 2, 85), lightblue);
-    color: rgb(231, 225, 225);
-    font-size: 36px;
-    text-align: center;
-  }
-  .button {
-      display: flex;
-      flex-direction: row;
-      justify-content: start;
-  }
-  
-  
-.caps {
+* {
   text-transform: capitalize;
+  font-family: Helvetica, Sans-Serif;
+  margin: 0;
+  box-sizing: border-box;
+  color: rgb(85, 10, 85);
 }
 
-
+.h1 {
+  padding: 2%;
+  background-image: linear-gradient(to bottom right, rgb(2, 2, 85), lightblue);
+  color: rgb(231, 225, 225);
+  font-size: 36px;
+  text-align: center;
+}
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
 
 /* @media (min-width: 576px)  */
-
