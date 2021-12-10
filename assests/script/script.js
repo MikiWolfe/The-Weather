@@ -1,3 +1,4 @@
+const searchBtn = document.getElementById("search-btn")
 const searchFormEl = document.getElementById("search-form");
 let pastSearch = document.getElementById("past-search-btns");
 const currentWeatherEl = document.getElementById("currentWeather");
@@ -7,29 +8,37 @@ let currentTemp = document.getElementById("current-temp");
 let currentWind = document.getElementById("current-wind");
 let currentHumid = document.getElementById("current-humidity");
 let currentUV = document.getElementById("current-UV");
-let currentTime = moment().format('MMMM Do YYYY, h:mm:ss a')
+let currentTime = moment().format("MMMM Do YYYY");
+// let iconURL = "https://openweathermap.org/img/w/" + dayData.weather[0].icon + ".png";
 
 let searchCityHistory = [];
-let userCity = null 
+let userCity = null;
 const myAPIKey = "e18c8f36cfe444e519c94f2dc3231355"; // just in case ;
 
 function printResults(data) {
-  currentWeatherHeader.innerHTML ="Current City : " + userCity + " " + currentTime;
-  currentTemp.innerHTML = "Temp : " + data['current']['temp'];
-  currentWind.innerHTML = "Wind : " + data['current']['weather']['wind_speed'];
-  currentHumid.innerHTML = "Humidity : " + data['current']['humidity']
+  currentWeatherHeader.innerHTML =
+    "Current City : " +
+    userCity +
+    " " +
+    currentTime +
+    data.current.weather[0].icon;
+    // Coverting celsius to fahrenheit
+    let celsius = data["current"]["temp"]
+    var fahr = ((celsius * 9) /5 ) + 32;
+  currentTemp.innerHTML = "Temp : " + fahr + "°F"  + " / " + celsius  + "°C";
+  currentWind.innerHTML = "Wind : " + data["current"]["wind_speed"] + " MPH";
+  currentHumid.innerHTML = "Humidity : " + data["current"]["humidity"] + "%";
+  currentUV.innerHTML = "UV Index : " + data.current.uvi;
 }
 
-$("#search-form").submit(function (e) { 
-// document.forms["search-form"].submit();
+$("#search-form").submit(function (e) {
   e.preventDefault();
- userCity = $("#search-input").val();
- searchCityHistory.push(userCity)
- displayPastCity()
- 
-console.log("hi Kris" , searchCityHistory)    
-   let geoRequestURL = `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=e18c8f36cfe444e519c94f2dc3231355`;
-// this function gets the lat and lon using user city data to plug in to the the weather api 
+  userCity = $("#search-input").val();
+  searchCityHistory.push(userCity);
+  displayPastCity();
+
+  let geoRequestURL = `http://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${myAPIKey}`;
+  // this function gets the lat and lon using user city data to plug in to the the weather api
   fetch(geoRequestURL).then(async function (responce) {
     const data = await responce.json();
     const lat = data[0].lat;
@@ -37,31 +46,27 @@ console.log("hi Kris" , searchCityHistory)
     oneCall(lat, lon);
   });
 });
-// this function gets weather data from API 
+// this function gets weather data from API
 function oneCall(lat, lon) {
-  var weatherRequestURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts,minutely,hourly,daily&units=imperial&appid=e18c8f36cfe444e519c94f2dc3231355`;
+  var weatherRequestURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts,minutely,hourly,daily&units=imperial&appid=${myAPIKey}`;
   fetch(weatherRequestURL).then(async function (response) {
     const data = await response.json();
 
     console.log(data);
-    printResults(data)
+    printResults(data);
     return;
-    
-    // TODO:this function does not work function does not come when called.  
-    
-    // TODO: render() data to currentWeatherEl
-    // print data to the page. would love to use dynmic HTML but understand if not today
-    // 
-   
   });
 }
-function displayPastCity(){
+function displayPastCity() {
   for (let i = 0; i < searchCityHistory.length; i++) {
-    let pastBtn = document.createElement("button")
+    let pastBtn = document.createElement("button");
 
-    pastSearch.appendChild(pastBtn)
+    pastSearch.appendChild(pastBtn);
     // id, value, onclick and attributes
-
-  }}
-  
-  moment();
+  }
+}
+clearBtn = document.createElement("button")
+clearBtn.addClass("btn btn-danger btn-block");
+searchBtn.appendChild(clearBtn)
+// class="btn btn-danger btn-block"
+moment();

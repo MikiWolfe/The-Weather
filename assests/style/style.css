@@ -21,7 +21,9 @@
   }
   
   
-
+.caps {
+  text-transform: capitalize;
+}
 
 
 
