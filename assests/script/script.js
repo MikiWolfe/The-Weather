@@ -3,23 +3,22 @@ const searchFormEl = document.getElementById("search-form");
 let pastSearch = document.getElementById("past-search-btns");
 const currentWeatherEl = document.getElementById("currentWeather");
 let currentWeatherHeader = document.getElementById("currentWeatherHeader");
-let fiveDayForecastEl = document.getElementById("fiveDayForecast");
+let fiveDayForecastEl = document.querySelectorAll("fiveDayForecast");
 let currentTemp = document.getElementById("current-temp");
 let currentWind = document.getElementById("current-wind");
 let currentHumid = document.getElementById("current-humidity");
 let currentUV = document.getElementById("current-UV");
 let dateOne = document.getElementById("headerOne")
 let currentDay = moment().format("MMMM Do YYYY");
-let tempOne = document.getElementById("tempOne")
 let searchCityHistory = [];
 let userCity = null;
 const myAPIKey = "e18c8f36cfe444e519c94f2dc3231355"; // just in case ;
 
-moment();
+moment(); 
 
 function printResults(data) {
   let weatherIcon = data.current.weather[0].icon;
-  let iconURL = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+  let iconURL = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png `;
   img = document.createElement('img')
   img.src = iconURL
   currentWeatherHeader.innerHTML =
@@ -28,22 +27,20 @@ function printResults(data) {
   currentTemp.innerHTML = "Temp : " + data["current"]["temp"] +"°F" ;
   currentWind.innerHTML = "Wind : " + data["current"]["wind_speed"] + " MPH";
   currentHumid.innerHTML = "Humidity : " + data["current"]["humidity"] + "%";
-  currentUV.innerHTML = "UV Index : " + data.current.uvi;
+  currentUV.innerHTML = "UV Index : " + data.current.uvi; 
+    if (data.current.uvi < 4 ) {
+      currentUV.setAttribute("class", "badge badge-success");
+  }
+  else if (data.current.uvi.value < 8) {
+      currentUV.setAttribute("class", "badge badge-warning");
+  }
+  else {
+    data.current.uvi.setAttribute("class", "badge badge-danger");
+ 
+};
 }
-// TODO:
-function displayFiveDay(data) { 
- for (let i = 0; i < 5; i++) {
-  let forcastOne = moment().add(1, 'days').format('DD/MM/YYYY')
-  let fiveDayWeatherEl = document.createElement("img");
- let forecastIcon = data.current.weather[0].icon;
- let forcastURL = `https://openweathermap.org/img/wn/${forecastIcon}@2x.png`;
- img.src = forcastURL;
- document.getElementById("headerOne").appendChild(img)
- let tempOne = data.daily[0].temp.day
- document.getElementById("tempOne").appendChild(tempOne)
- }
-}
-$("#search-form").submit(function (e) {
+// Search from to collect city name from user:
+$("#search-form").submit(e => {
   e.preventDefault();
   userCity = $("#search-input").val();
   searchCityHistory.push(userCity);
@@ -68,11 +65,13 @@ function oneCall(lat, lon) {
     console.log(data);
     printResults(data);
     displayFiveDay(data)
-
+    
     return;
   });
 }
+// TODO:
 
+// TODO:
 function displayPastCity() {
   for (let i = 0; i < searchCityHistory.length; i++) {
     let pastBtn = document.createElement("button");     
@@ -81,9 +80,9 @@ function displayPastCity() {
     pastBtn.setAttribute("value", searchCityHistory[i]);
     pastBtn,innerHTML = "value"
     pastBtn.addEventListener("click", function(){
- 
+      
     })
-       pastSearch.appendChild(pastBtn);
+    pastSearch.appendChild(pastBtn);
   }
 }
 // clear local storage
