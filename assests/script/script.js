@@ -37,7 +37,13 @@ function printResults(data) {
   }
 }
 // TODO:
-function displayFiveDay(data) {}
+// let fiveDayForecastEl = document.querySelectorAll("fiveDayForecast");
+function displayFiveDay(data) {
+  for (i=0; i>5; i++){
+ let forcastDate = "<p></p>"
+ 
+  }
+} 
 // Search from to collect city name from user:
 $("#search-form").submit((e) => {
   e.preventDefault();
