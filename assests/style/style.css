@@ -18,5 +18,21 @@
   flex-direction: row;
   justify-content: start;
 }
-
+.green{
+  
+  background-color: rgb(120, 233, 120);
+}
+.yellow{
+  background-color: rgb(245, 245, 130);
+}
+.orange {
+  background-color: orange;
+}
+.red {
+  color: white;
+  background-color: red;
+}
+.purple 
+{ color: white;
+  background-color: purple;}
 /* @media (min-width: 576px)  */
