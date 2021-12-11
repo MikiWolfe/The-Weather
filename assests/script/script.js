@@ -8,9 +8,9 @@ let currentTemp = document.getElementById("current-temp");
 let currentWind = document.getElementById("current-wind");
 let currentHumid = document.getElementById("current-humidity");
 let currentUV = document.getElementById("current-UV");
-let dayOne = document.getElementById("dayOne");
+let dateOne = document.getElementById("headerOne")
 let currentDay = moment().format("MMMM Do YYYY");
-
+let tempOne = document.getElementById("tempOne")
 let searchCityHistory = [];
 let userCity = null;
 const myAPIKey = "e18c8f36cfe444e519c94f2dc3231355"; // just in case ;
@@ -30,33 +30,18 @@ function printResults(data) {
   currentHumid.innerHTML = "Humidity : " + data["current"]["humidity"] + "%";
   currentUV.innerHTML = "UV Index : " + data.current.uvi;
 }
-function displayFiveDay(data) {
-  let date = currentDay;
-  document.getElementById('dayOne').innerHTML = date
-  let dailyIcon = data.daily[0].weather[0].icon
-  let iconURL = `https://openweathermap.org/img/wn/${dailyIcon}@2x.png`;
-  img = document.createElement('img')
-  img.src = iconURL
-  document.getElementById("cardOne").appendChild(img)
-  // for (let i = 0; i < 5; i++) {
-  
-  //   //  let temp =
-  //   let celsius = data["current"]["temp"];
-  //   let fahr = (celsius * 9) / 5 + 32;
-  //   let wind = data.daily[i + 1].wind_speed;
-  //   let humid = data.daily[i + 1].humidity;
-
-  //   dayOne.innerHTML = data.daily[1].temp.day;
-  // }
-
-  // div class="card">
-  // <div class="card-body">
-  //   <h5 class="card-title">Date:</h5>
-  //   <p class="card-text">Temp:</p>
-  //   <p class="card-text">Wind:</p>
-  //   <p class="card-text">Humidity:</p>
-
-  // </div>
+// TODO:
+function displayFiveDay(data) { 
+ for (let i = 0; i < 5; i++) {
+  let forcastOne = moment().add(1, 'days').format('DD/MM/YYYY')
+  let fiveDayWeatherEl = document.createElement("img");
+ let forecastIcon = data.current.weather[0].icon;
+ let forcastURL = `https://openweathermap.org/img/wn/${forecastIcon}@2x.png`;
+ img.src = forcastURL;
+ document.getElementById("headerOne").appendChild(img)
+ let tempOne = data.daily[0].temp.day
+ document.getElementById("tempOne").appendChild(tempOne)
+ }
 }
 $("#search-form").submit(function (e) {
   e.preventDefault();
@@ -82,7 +67,7 @@ function oneCall(lat, lon) {
     
     console.log(data);
     printResults(data);
-    displayFiveDay()
+    displayFiveDay(data)
 
     return;
   });
