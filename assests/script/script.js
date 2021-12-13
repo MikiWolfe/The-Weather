@@ -13,7 +13,6 @@ let currentDay = moment().format("MMMM Do YYYY");
 let searchCityHistory = [];
 let userCity = null;
 const myAPIKey = "e18c8f36cfe444e519c94f2dc3231355"; // just in case ;
-
 moment();
 
 function printResults(data) {
@@ -36,28 +35,32 @@ function printResults(data) {
     currentUV.setAttribute("class", "red");
   }
 }
-function displayFiveDay(data) { 
+function displayFiveDay(data) {
   console.log(data);
   for (let i = 1; i < 6; i++) {
-let fiveCard = $("<div>").attr("class", "card bg-info text-white col rounded-lg p-2");
-$("#fiveDayForecast").append(fiveCard);
-// let fiveDay = 
-// let day = $("<p>")
-// fiveCard
-let fiveIcon = data.daily[i].weather[0].icon;
-let iconURL = `https://openweathermap.org/img/wn/${fiveIcon}@2x.png`;
-  img = document.createElement("img");
-  img.src = iconURL;
-fiveCard.append(img)
-let fiveTemp = ("Temp:" + data.daily[i].temp.day  + "°F")
-let temp = $("<p>").html(fiveTemp)
-fiveCard.append(temp)
-let fiveWind = ("Wind speed:" + "  " + data.daily[i].wind_speed + "MPH")
-let wind = $("<p>").html(fiveWind)
-fiveCard.append(wind)
-let fiveHumid = ("Humidity:" +"  " +data.daily[i].humidity + "%")
-let humid =$("<p>").html(fiveHumid)
-fiveCard.append(humid)
+    let fiveCard = $("<div>").attr(
+      "class",
+      "card bg-info text-white col rounded-lg p-2"
+    );
+    $("#fiveDayForecast").append(fiveCard);
+    let time = moment().add(i, "day").format("MMM Do YY");
+
+    let day = $("<p>").html(time);
+    fiveCard.append(day);
+    let fiveIcon = data.daily[i].weather[0].icon;
+    let iconURL = `https://openweathermap.org/img/wn/${fiveIcon}@2x.png`;
+    img = document.createElement("img");
+    img.src = iconURL;
+    fiveCard.append(img);
+    let fiveTemp = "Temp:" + data.daily[i].temp.day + "°F";
+    let temp = $("<p>").html(fiveTemp);
+    fiveCard.append(temp);
+    let fiveWind = "Wind spd:" + "  " + data.daily[i].wind_speed + " " + "MPH";
+    let wind = $("<p>").html(fiveWind);
+    fiveCard.append(wind);
+    let fiveHumid = "Humidity:" + "  " + data.daily[i].humidity + "%";
+    let humid = $("<p>").html(fiveHumid);
+    fiveCard.append(humid);
   }
 }
 
@@ -88,13 +91,6 @@ function oneCall(lat, lon) {
 
     displayFiveDay(data);
     return;
-
-
-
-
-
-
-
   });
 }
 
@@ -124,5 +120,5 @@ clearBtn.classList.add("btn-danger", "btn-block", "btn", "caps");
 clearBtn.innerHTML = "Clear Search";
 pastSearch.appendChild(clearBtn);
 pastSearch.addEventListener("click", function () {
-localStorage.clear();
+  localStorage.clear();
 });
