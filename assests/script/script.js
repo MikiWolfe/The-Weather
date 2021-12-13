@@ -36,41 +36,28 @@ function printResults(data) {
     currentUV.setAttribute("class", "red");
   }
 }
-function displayFiveDay(data) {
+function displayFiveDay(data) { 
   console.log(data);
   for (let i = 1; i < 6; i++) {
-
-//     $("#fiveDayForecastEl").append(`
-// <div class="card">
-// <div id="fiveDayForecast" class="card-body">
-// <h5>date</h5>
-// <p id ="temp">temp</p>
-// <p>wind</p>
-// <p>humidity</p>
-// </div>
-// </div>
-//     `);
-
-    // let icon = data.daily.weather[i].icon;
-    // let iconURL = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
-    // img = document.createElement("img");
-    // img.src = iconURL;
-    // day[i].innerHTML = ""
-    // fiveDayForecastEl.appendChild(icon)
-    // let temp = $("#temp")
-    // temp.innerHTML = data.daily[i].temp.day  + "°F";
-    // wind[i].innerHTML = data.daily[i].wind_speed + "MPH";
-    // humid[i].innerHTML = data.daily[i].humidity + "%"
-
-    // let dayFive = "";
-    // let tempFive =
-    // let windFive = data.daily[i].wind_speed;
-    // let humidFive = ;
-    console.log(icon);
-    console.log(humidFive);
-    console.log(tempFive);
-    console.log(windFive);
-    console.log(dayFive);
+let fiveCard = $("<div>").attr("class", "card bg-info text-white col rounded-lg p-2");
+$("#fiveDayForecast").append(fiveCard);
+// let fiveDay = 
+// let day = $("<p>")
+// fiveCard
+let fiveIcon = data.daily[i].weather[0].icon;
+let iconURL = `https://openweathermap.org/img/wn/${fiveIcon}@2x.png`;
+  img = document.createElement("img");
+  img.src = iconURL;
+fiveCard.append(img)
+let fiveTemp = ("Temp:" + data.daily[i].temp.day  + "°F")
+let temp = $("<p>").html(fiveTemp)
+fiveCard.append(temp)
+let fiveWind = ("Wind speed:" + "  " + data.daily[i].wind_speed + "MPH")
+let wind = $("<p>").html(fiveWind)
+fiveCard.append(wind)
+let fiveHumid = ("Humidity:" +"  " +data.daily[i].humidity + "%")
+let humid =$("<p>").html(fiveHumid)
+fiveCard.append(humid)
   }
 }
 
@@ -80,7 +67,7 @@ $("#search-form").submit((e) => {
   userCity = $("#search-input").val();
   searchCityHistory.push(userCity);
   localStorage.setItem("userCity", JSON.stringify(searchCityHistory));
-  displayPastCity();
+  // displayPastCity();
 
   let geoRequestURL = `https://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${myAPIKey}`;
   // this function gets the lat and lon using user city data to plug in to the the weather api
@@ -98,29 +85,44 @@ function oneCall(lat, lon) {
     const data = await response.json();
     printResults(data);
     // fiveDayForecastEl.textContent("")
-    console.log(fiveDayForecastEl)
+
     displayFiveDay(data);
     return;
+
+
+
+
+
+
+
   });
 }
 
 // TODO:
-function displayPastCity() {
-  for (let i = 0; i < searchCityHistory.length; i++) {
-    let pastBtn = document.createElement("button");
-    pastBtn.classList.add("btn", "btn-secondary", "btn-block", "caps");
-    pastBtn.setAttribute("type", "text");
-    pastBtn.setAttribute("value", searchCityHistory[i]);
-    pastBtn, (innerHTML = "value");
-    pastBtn.addEventListener("click", function () {});
-    pastSearch.appendChild(pastBtn);
-  }
-}
+// function displayPastCity() {
+//    {
+//     let cityHistory = JSON.parse(localStorage.getItem("searchCityHistory"));
+//     if(!cityHistory == null){
+//       searchCityHistory = cityHistory
+//     };
+
+//     for (let i = 0; i < searchCityHistory.length; i++){
+//       if (i === 8){
+//         break;
+//       }
+//     let pastBtn = document.createElement("button");
+//     pastBtn.classList.add("btn", "btn-secondary", "btn-block", "caps");
+//     pastBtn.setAttribute("value", searchCityHistory[i]);}
+//     pastBtn.text(searchCityHistory[i]);
+//     pastBtn.addEventListener("click", function () {});
+//     pastSearch.appendChild(pastBtn);
+//   }
+// }
 // clear local storage
 clearBtn = document.createElement("button");
 clearBtn.classList.add("btn-danger", "btn-block", "btn", "caps");
 clearBtn.innerHTML = "Clear Search";
 pastSearch.appendChild(clearBtn);
 pastSearch.addEventListener("click", function () {
-  localStorage.clear();
+localStorage.clear();
 });
