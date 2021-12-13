@@ -3,7 +3,7 @@ const searchFormEl = document.getElementById("search-form");
 let pastSearch = document.getElementById("past-search-btns");
 const currentWeatherEl = document.getElementById("currentWeather");
 let currentWeatherHeader = document.getElementById("currentWeatherHeader");
-let fiveDayForecastEl = document.querySelectorAll("fiveDayForecast");
+let fiveDayForecastEl = document.getElementById("fiveDayForecast");
 let currentTemp = document.getElementById("current-temp");
 let currentWind = document.getElementById("current-wind");
 let currentHumid = document.getElementById("current-humidity");
@@ -36,14 +36,44 @@ function printResults(data) {
     currentUV.setAttribute("class", "red");
   }
 }
-// TODO:
-// let fiveDayForecastEl = document.querySelectorAll("fiveDayForecast");
 function displayFiveDay(data) {
-  for (i=0; i>5; i++){
- let forcastDate = "<p></p>"
- 
+  console.log(data);
+  for (let i = 1; i < 6; i++) {
+
+//     $("#fiveDayForecastEl").append(`
+// <div class="card">
+// <div id="fiveDayForecast" class="card-body">
+// <h5>date</h5>
+// <p id ="temp">temp</p>
+// <p>wind</p>
+// <p>humidity</p>
+// </div>
+// </div>
+//     `);
+
+    // let icon = data.daily.weather[i].icon;
+    // let iconURL = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+    // img = document.createElement("img");
+    // img.src = iconURL;
+    // day[i].innerHTML = ""
+    // fiveDayForecastEl.appendChild(icon)
+    // let temp = $("#temp")
+    // temp.innerHTML = data.daily[i].temp.day  + "°F";
+    // wind[i].innerHTML = data.daily[i].wind_speed + "MPH";
+    // humid[i].innerHTML = data.daily[i].humidity + "%"
+
+    // let dayFive = "";
+    // let tempFive =
+    // let windFive = data.daily[i].wind_speed;
+    // let humidFive = ;
+    console.log(icon);
+    console.log(humidFive);
+    console.log(tempFive);
+    console.log(windFive);
+    console.log(dayFive);
   }
-} 
+}
+
 // Search from to collect city name from user:
 $("#search-form").submit((e) => {
   e.preventDefault();
@@ -66,11 +96,10 @@ function oneCall(lat, lon) {
   var weatherRequestURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts,minutely,hourly,&units=imperial&appid=${myAPIKey}`;
   fetch(weatherRequestURL).then(async function (response) {
     const data = await response.json();
-
-    console.log(data);
     printResults(data);
+    // fiveDayForecastEl.textContent("")
+    console.log(fiveDayForecastEl)
     displayFiveDay(data);
-
     return;
   });
 }
