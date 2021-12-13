@@ -22,7 +22,7 @@ function printResults(data) {
   img.src = iconURL;
   currentWeatherHeader.innerHTML =
     "Current City : " + userCity + " : " + currentDay;
-  currentWeatherHeader.appendChild(img);
+  currentWeatherHeader.append(img);
   currentTemp.innerHTML = "Temp : " + data["current"]["temp"] + "°F";
   currentWind.innerHTML = "Wind : " + data["current"]["wind_speed"] + " MPH";
   currentHumid.innerHTML = "Humidity : " + data["current"]["humidity"] + "%";
@@ -35,12 +35,14 @@ function printResults(data) {
     currentUV.setAttribute("class", "red");
   }
 }
+
 function displayFiveDay(data) {
   console.log(data);
   for (let i = 1; i < 6; i++) {
     let fiveCard = $("<div>").attr(
       "class",
-      "card bg-info text-white col rounded-lg p-2"
+      "bg-secondary text-white",
+      "col-md-1 border border-primary"
     );
     $("#fiveDayForecast").append(fiveCard);
     let time = moment().add(i, "day").format("MMM Do YY");

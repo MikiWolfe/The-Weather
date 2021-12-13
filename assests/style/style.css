@@ -2,9 +2,7 @@
   text-transform: capitalize;
   font-family: Helvetica, Sans-Serif;
   margin: 0;
-  box-sizing: border-box;
-  color: rgb(85, 10, 85);
-}
+ }
 
 .h1 {
   padding: 2%;
@@ -18,9 +16,7 @@
   flex-direction: row;
   justify-content: start;
 }
-.fiveDayForecast{
-  background-color: lightblue;
-}
+
 .green{
   
   background-color: rgb(120, 233, 120);
