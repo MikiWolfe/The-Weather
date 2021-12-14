@@ -14,6 +14,7 @@ let userCity = null;
 const myAPIKey = "e18c8f36cfe444e519c94f2dc3231355"; // just in case ;
 moment();
 
+// Rendering current weather to the page: 
 function printResults(data) {
   let weatherIcon = data.current.weather[0].icon;
   let iconURL = `https://openweathermap.org/img/wn/${weatherIcon}@2x.png `;
@@ -33,7 +34,7 @@ function printResults(data) {
     currentUV.setAttribute("class", "red");
   }
 }
-
+// Rendering five day forecast to the page 
 function displayFiveDay(data) {
 fiveDayForecastEl.innerHTML = " "
  console.log(data);
@@ -43,7 +44,6 @@ fiveDayForecastEl.innerHTML = " "
       );
       $("#fiveDayForecast").append(fiveCard);
       let time = moment().add(i, "day").format("MMM Do YY");
-      
       let day = $("<p>").html(time);
       fiveCard.append(day);
       let fiveIcon = data.daily[i].weather[0].icon;
@@ -64,23 +64,27 @@ fiveDayForecastEl.innerHTML = " "
 }
 
 // Search from to collect city name from user:
-$("#search-form").submit((e) => {
-  e.preventDefault();
-  userCity = $("#search-input").val();
+function run(nameOfCity){ 
+  userCity = nameOfCity;
   searchCityHistory.push(userCity);
-  localStorage.setItem("userCity", JSON.stringify(searchCityHistory));
-  // displayPastCity();
-  
+  localStorage.setItem("cityNames", JSON.stringify(searchCityHistory));
+ 
+  renderPastCity()
+  // using lat and lon from user city to plug in to the the weather api
   let geoRequestURL = `https://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${myAPIKey}`;
-  // this function gets the lat and lon using user city data to plug in to the the weather api
   fetch(geoRequestURL).then(async function (responce) {
     const data = await responce.json();
     const lat = data[0].lat;
     const lon = data[0].lon;
     oneCall(lat, lon);
-  });
+  }); }
+
+$("#search-form").submit((e) => {
+  e.preventDefault();
+  run($("#search-input").val())
+  
 });
-// this function gets weather data from API
+//  weather data from One Call Weather API
 function oneCall(lat, lon) {
   var weatherRequestURL = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=alerts,minutely,hourly,&units=imperial&appid=${myAPIKey}`;
   fetch(weatherRequestURL).then(async function (response) {
@@ -90,33 +94,29 @@ function oneCall(lat, lon) {
     return; 
   });
 }
-
-// TODO:
-function displayPastCity() {
-   {
-    let cityHistory = JSON.parse(localStorage.getItem("searchCityHistory"));
-    if(!cityHistory == null){
-      searchCityHistory = cityHistory
-    };
-
-    for (let i = 0; i < searchCityHistory.length; i++){
-      if (i === 8){
-        break;
-      }
+// TODO: Eather add if city exsists dont add or 
+function renderPastCity() {
+  pastSearch.innerHTML = "";
+  console.log(localStorage.length)
+  let cityNames = JSON.parse(localStorage.getItem('cityNames'))
+  for (let i = 0; i < cityNames.length; i++) {
     let pastBtn = document.createElement("button");
     pastBtn.classList.add("btn", "btn-secondary", "btn-block", "caps");
-    pastBtn.setAttribute("value", searchCityHistory[i]);}
-    pastBtn.text(searchCityHistory[i]);
-    pastBtn.addEventListener("click", function () {});
-    pastSearch.appendChild(pastBtn);
-  }
+    pastBtn.setAttribute("type" , "text");
+    pastBtn.innerHTML = cityNames[i]
+    pastBtn.setAttribute("value", cityNames[i]);
+    pastBtn.addEventListener("click", function () {
+    run(cityNames[i])
+  });
+  pastSearch.append(pastBtn);
+}
 }
 
-// clear local storage
-clearBtn = document.createElement("button");
+
+// Clear local storage
+let clearBtn = document.getElementById("clear-btn");
 clearBtn.classList.add("btn-danger", "btn-block", "btn", "caps");
 clearBtn.innerHTML = "Clear Search";
-pastSearch.appendChild(clearBtn);
-pastSearch.addEventListener("click", function () {
+clearBtn.addEventListener("click", function () {
   localStorage.clear();
 });
