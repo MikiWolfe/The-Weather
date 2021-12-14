@@ -13,3 +13,4 @@ We are making an application using a server side APIs called OpenWeather One Cal
  https://mikiwolfe.github.io/The-Weather/
 
  ## Screen shot of site:
+![ScreenShot](https://raw.githubusercontent.com/MikiWolfe/The-Weather/main/screenShot.jpeg)"The Weather"

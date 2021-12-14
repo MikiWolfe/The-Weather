@@ -96,13 +96,12 @@ function oneCall(lat, lon) {
 }
 // TODO: Eather add if city exsists dont add or 
 function renderPastCity() {
-  pastSearch.innerHTML = "";
-  console.log(localStorage.length)
+  console.log(localStorage)
   let cityNames = JSON.parse(localStorage.getItem('cityNames'))
   for (let i = 0; i < cityNames.length; i++) {
     let pastBtn = document.createElement("button");
     pastBtn.classList.add("btn", "btn-secondary", "btn-block", "caps");
-    pastBtn.setAttribute("type" , "text");
+    pastBtn.setAttribute("type" , "caps");
     pastBtn.innerHTML = cityNames[i]
     pastBtn.setAttribute("value", cityNames[i]);
     pastBtn.addEventListener("click", function () {

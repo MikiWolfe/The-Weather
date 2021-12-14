@@ -31,6 +31,9 @@
   color: white;
   background-color: red;
 }
+.caps{
+  text-transform: capitalize;
+}
 .purple 
 { color: white;
   background-color: purple;}
