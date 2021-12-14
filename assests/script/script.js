@@ -69,7 +69,7 @@ function run(nameOfCity){
   searchCityHistory.push(userCity);
   localStorage.setItem("cityNames", JSON.stringify(searchCityHistory));
  
-  renderPastCity()
+  
   // using lat and lon from user city to plug in to the the weather api
   let geoRequestURL = `https://api.openweathermap.org/geo/1.0/direct?q=${userCity}&limit=5&appid=${myAPIKey}`;
   fetch(geoRequestURL).then(async function (responce) {
@@ -82,7 +82,7 @@ function run(nameOfCity){
 $("#search-form").submit((e) => {
   e.preventDefault();
   run($("#search-input").val())
-  
+  renderPastCity()
 });
 //  weather data from One Call Weather API
 function oneCall(lat, lon) {
@@ -94,8 +94,9 @@ function oneCall(lat, lon) {
     return; 
   });
 }
-// TODO: Eather add if city exsists dont add or 
 function renderPastCity() {
+  $("#past-search-btns").empty()
+  
   console.log(localStorage)
   let cityNames = JSON.parse(localStorage.getItem('cityNames'))
   for (let i = 0; i < cityNames.length; i++) {
@@ -118,4 +119,5 @@ clearBtn.classList.add("btn-danger", "btn-block", "btn", "caps");
 clearBtn.innerHTML = "Clear Search";
 clearBtn.addEventListener("click", function () {
   localStorage.clear();
+  $("#past-search-btns").empty()
 });
